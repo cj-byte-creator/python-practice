@@ -6,5 +6,9 @@
     {
         "title": "Mop floor",
         "is_completed": false
+    },
+    {
+        "title": "Clean room",
+        "is_completed": false
     }
 ]

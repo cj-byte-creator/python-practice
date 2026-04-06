@@ -1,8 +1,8 @@
 import json
 import os
 
-if os.path.exists("tasks.json") and os.path.getsize("tasks.json") > 0:
-    with open("tasks.json", "r") as f:
+if os.path.exists("Task_Manager/tasks.json") and os.path.getsize("Task_Manager/tasks.json") > 0:
+    with open("Task_Manager/tasks.json", "r") as f:
         try:
             tasks = json.load(f)
         except json.JSONDecodeError:
@@ -22,7 +22,7 @@ print("-----Welcome to the Task Manager!-----")
 print("You can : \n 1. Add Task \n 2. View all Tasks \n 3. Mark tasks as done \n 4. Exit \n")
 
 while True:
-    with open("tasks.json","w") as f:
+    with open("Task_Manager/tasks.json","w") as f:
         json.dump(tasks,f,indent=4)
     choice = input("Input the number of your choosing : ")
     match choice:
