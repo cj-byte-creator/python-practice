@@ -1,11 +1,11 @@
 [
     {
         "title": "Water plants",
-        "is_completed": false
+        "is_completed": true
     },
     {
         "title": "Mop floor",
-        "is_completed": false
+        "is_completed": true
     },
     {
         "title": "Clean room",
