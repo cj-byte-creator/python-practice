@@ -10,5 +10,13 @@
     {
         "title": "Clean room",
         "is_completed": false
+    },
+    {
+        "title": "Take out trash",
+        "is_completed": false
+    },
+    {
+        "title": "Cook rice",
+        "is_completed": false
     }
 ]
