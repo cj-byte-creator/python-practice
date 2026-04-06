@@ -40,7 +40,26 @@ while True:
                     status = "[ / ]" if task["is_completed"] else "[  ]"
                     print(f"{i}. {task["title"]} {status}")
         case "3":#Marking tasks as done
-            print("Not Implemented Yet!")
+            print("---Tasks---")
+            for i, task in enumerate(tasks,1):
+                status = "[ / ]" if task["is_completed"] else "[  ]"
+                print(f"{i}. {task["title"]} {status}")
+
+            try:
+                task_num = int(input("Which task do you want to mark as complete?\n"))
+            except ValueError:
+                print("Enter a valid number.")
+            
+            if tasks[task_num - 1]["is_completed"]:
+                print("Task already complete.")
+            else:
+                tasks[task_num - 1]["is_completed"] = True
+                print("Task marked as done.")
+            
+            print("---Tasks---")
+            for i, task in enumerate(tasks,1):
+                status = "[ / ]" if task["is_completed"] else "[  ]"
+                print(f"{i}. {task["title"]} {status}")
         case "4":#Exiting the program
             with open("Task_Manager/tasks.json","w") as f:
                 json.dump(tasks,f,indent=4)
@@ -49,6 +68,3 @@ while True:
             print("-----Write a valid number.-----")
 
 print("-----Thank you!-----")
-
-
-
