@@ -1,0 +1,10 @@
+[
+    {
+        "title": "Water plants",
+        "is_completed": false
+    },
+    {
+        "title": "Mop floor",
+        "is_completed": false
+    }
+]
