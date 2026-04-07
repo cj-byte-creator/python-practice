@@ -18,6 +18,11 @@ class Task:
     def to_dict(self):
         return self.__dict__
     
+def display_tasks(task_list):
+    for i, task in enumerate(task_list,1):
+        status = "[DONE]" if task["is_completed"] else "[    ]"
+        print(f"{i}. {task["title"]} {status}")
+    
 print("-----Welcome to the Task Manager!-----")
 print("You can : \n 1. Add Task \n 2. View all Tasks \n 3. Mark tasks as done \n 4. Exit \n")
 
@@ -36,30 +41,27 @@ while True:
                 print("No Tasks yet")
             else:
                 print("---Tasks---")
-                for i, task in enumerate(tasks,1):
-                    status = "[ / ]" if task["is_completed"] else "[  ]"
-                    print(f"{i}. {task["title"]} {status}")
+                display_tasks(tasks)
         case "3":#Marking tasks as done
             print("---Tasks---")
-            for i, task in enumerate(tasks,1):
-                status = "[ / ]" if task["is_completed"] else "[  ]"
-                print(f"{i}. {task["title"]} {status}")
+            display_tasks(tasks)
 
             try:
                 task_num = int(input("Which task do you want to mark as complete?\n"))
+                if 1 <= task_num <= len(tasks):
+                    index = task_num - 1
+                    if tasks[index]["is_completed"]:
+                        print("Task already complete.")
+                    else:
+                        tasks[index]["is_completed"] = True
+                        print("Task marked as done.")
+                else:
+                    print("Enter a valid number.")
             except ValueError:
                 print("Enter a valid number.")
             
-            if tasks[task_num - 1]["is_completed"]:
-                print("Task already complete.")
-            else:
-                tasks[task_num - 1]["is_completed"] = True
-                print("Task marked as done.")
-            
             print("---Tasks---")
-            for i, task in enumerate(tasks,1):
-                status = "[ / ]" if task["is_completed"] else "[  ]"
-                print(f"{i}. {task["title"]} {status}")
+            display_tasks(tasks)
         case "4":#Exiting the program
             with open("Task_Manager/tasks.json","w") as f:
                 json.dump(tasks,f,indent=4)
