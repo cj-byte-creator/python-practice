@@ -3,12 +3,11 @@ from logic import Calculator
 first_run = True
 calc = Calculator()
 
-def num_valid(number):
-        try:
-            number = float(number)
-            return True
-        except ValueError:
-            return False
+def try_parse_float(value):
+    try:
+        return float(value)
+    except ValueError:
+        return None
         
 def operation_valid(operation):
     match operation:
@@ -61,14 +60,16 @@ if __name__ == "__main__":
             num = input("(q to quit) Input number : ")
             if quit(num):
                 break
-            
-            if num_valid(num):
-                calc.add(float(num))
-            else:
-                print("Enter a valid number.")
+            parsed_num = try_parse_float(num)
+            while parsed_num is None:
+                num = input("Enter a valid number! : ")
+                if quit(num):
+                    break
+                parsed_num = try_parse_float(num)
+            calc.add(parsed_num)
             continue
 
-        operation = input(f"Choose operation: \n 'a' or '+' - add \n 's' or '-' - subtract \n 'm' or '*' - multiply \n 'd' or '/' - divide \n 'q' - quit \n").lower()
+        operation = input("Choose operation: \n 'a' or '+' - add \n 's' or '-' - subtract \n 'm' or '*' - multiply \n 'd' or '/' - divide \n 'q' - quit \n").lower()
         if quit(operation):
             break
 
@@ -78,10 +79,14 @@ if __name__ == "__main__":
         num = input("(q to quit) Input number : ")
         if quit(num):
             break
-        while not num_valid(num):
+        parsed_num = try_parse_float(num)
+        while parsed_num is None:
             num = input("Enter a valid number! : ")
+            if quit(num):
+                break
+            parsed_num = try_parse_float(num)
             
-        do_operation(operation,float(num))
+        do_operation(operation,parsed_num)
 
 print("----- Thank you! -----")
 
