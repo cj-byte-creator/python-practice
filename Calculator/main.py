@@ -21,13 +21,23 @@ def do_operation(operation,number):
     match operation:
         case "a" | "+":
             calc.add(number)
+            print_calculation()
         case "s" | "-":
             calc.subtract(number)
+            print_calculation()
         case "m" | "*":
             calc.multiply(number)
+            print_calculation()
         case "d" | "/":
-            calc.divide(number)
-    
+            try:
+                calc.divide(number)
+                print_calculation()
+            except ZeroDivisionError:
+                print("Cannot divide by Zero!")
+
+def print_calculation():
+    print(calc.last_total, operation_map.get(operation), float(num), "=", calc.total)
+
 def quit(num="",operation=""):
     if num == "q" or operation == "q":
         return True
@@ -47,48 +57,31 @@ operation_map = {
 }
 if __name__ == "__main__":
     while True:
-        if first_run == False:#second - continuous runs
-            num = input(f"(q to quit) Input number : ")
+        if calc.total is None:
+            num = input("(q to quit) Input number : ")
             if quit(num):
                 break
             
             if num_valid(num):
-                num = float(num)
-            operation = input(f"Choose operation: \n 'a' or '+' - add \n 's' or '-' - subtract \n 'm' or '*' - multiply \n 'd' or '/' - divide \n 'q' - quit \n").lower()
-            if quit(operation):
-                break
-
-            while not operation_valid(operation):
-                    operation = input("Enter a valid operation! : ")
-            do_operation(operation,num)
-            print(calc.last_total, operation_map.get(operation), num, "=", calc.total)
-            
-        else:#first run
-            num = input(f"(q to quit) Input number : ")
-            if quit(num):
-                break
-
-            if num_valid(num):
-                first_run = False
-                num = float(num)
-                calc.add(num)
-
-                operation = input(f"Choose operation: \n 'a' or '+' - add \n 's' or '-' - subtract \n 'm' or '*' - multiply \n 'd' or '/' - divide \n 'q' - quit \n").lower()
-                if quit(operation):
-                    break
-
-                while not operation_valid(operation):
-                    operation = input("Enter a valid operation! : ")
-
-                num = input("Input a number : ")
-                while not num_valid(num):
-                    num = input("Enter a valid number! : ")
-
-                num = float(num)
-                do_operation(operation,num)
-                print(calc.last_total, operation_map.get(operation), num, "=", calc.total)
+                calc.add(float(num))
             else:
-                print ("Enter a valid number.")
+                print("Enter a valid number.")
+            continue
+
+        operation = input(f"Choose operation: \n 'a' or '+' - add \n 's' or '-' - subtract \n 'm' or '*' - multiply \n 'd' or '/' - divide \n 'q' - quit \n").lower()
+        if quit(operation):
+            break
+
+        while not operation_valid(operation):
+                operation = input("Enter a valid operation! : ")
+
+        num = input("(q to quit) Input number : ")
+        if quit(num):
+            break
+        while not num_valid(num):
+            num = input("Enter a valid number! : ")
+            
+        do_operation(operation,float(num))
 
 print("----- Thank you! -----")
 
